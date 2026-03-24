@@ -3,5 +3,7 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as schema from "../shared/schema";
 import path from "path";
 
-const sqlite = new Database(path.join(process.cwd(), "nameverse.db"));
+// Use Render persistent disk path in production, local file in development
+const dbPath = process.env.DB_PATH || path.join(process.cwd(), "nameverse.db");
+const sqlite = new Database(dbPath);
 export const db = drizzle(sqlite, { schema });
