@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: nameverse
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: NODE_ENV=production node dist/index.cjs
+    disk:
+      name: nameverse-db
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /var/data/nameverse.db
